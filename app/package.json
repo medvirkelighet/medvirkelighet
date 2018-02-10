@@ -1,22 +1,23 @@
 {
-  "name": "mitt-distrikt",
-  "version": "0.3.0",
-  "description": "Kart- og medvirkningsapp",
+  "name": "medvirkelighet",
+  "version": "0.4.0",
+  "description": "Digitalt verktøy for medvirkning",
   "main": "server.js",
+  "homepage" : "https://medvirkelighet.no",
   "scripts": {
     "test": "npm test",
     "start": "forever app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapic/mitt-distrikt.git"
+    "url": "git+https://github.com/medvirkelighet/medvirkelighet.git"
   },
-  "author": "knutole@mapic.io",
+  "author": "knutole@medvirkelighet.no",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/mapic/mitt-distrikt/issues"
+    "url": "https://github.com/medvirkelighet/medvirkelighet/issues"
   },
-  "homepage": "https://github.com/mapic/mitt-distrikt#readme",
+  "homepage": "https://github.com/medvirkelighet/medvirkelighet#readme",
   "dependencies": {
     "async": "^2.5.0",
     "body-parser": "^1.17.1",
