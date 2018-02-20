@@ -786,40 +786,41 @@ L.MapContent = L.Evented.extend({
         }.bind(this));
 
         // add geojson buildings
-        map.addLayer({
-            'id': 'room-extrusion',
-            'type': 'fill-extrusion',
-            'source': {
-                // Geojson Data source used in vector tiles, documented at
-                // https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
-                'type': 'geojson',
-                // 'data': 'https://gist.githubusercontent.com/anonymous/d5679f90d76a185d2aeed04c10d5890b/raw/96aad4c02d5d9aa6c5f592ce245bca52c5159b9a/map.geojson'
-                'data': app.config.mapbox.buildings.geojson
-            },
-            'paint': {
-                // See the Mapbox Style Spec for details on property functions
-                // https://www.mapbox.com/mapbox-gl-style-spec/#types-function
-                'fill-extrusion-color': {
-                    // Get the fill-extrusion-color from the source 'color' property.
-                    'property': 'color',
-                    'type': 'identity'
+        if (app.config.mapbox.buildings && app.config.mapbox.buildings.geosjon) {
+            map.addLayer({
+                'id': 'room-extrusion',
+                'type': 'fill-extrusion',
+                'source': {
+                    // Geojson Data source used in vector tiles, documented at
+                    // https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
+                    'type': 'geojson',
+                    // 'data': 'https://gist.githubusercontent.com/anonymous/d5679f90d76a185d2aeed04c10d5890b/raw/96aad4c02d5d9aa6c5f592ce245bca52c5159b9a/map.geojson'
+                    'data': app.config.mapbox.buildings.geojson
                 },
-                // 'fill-extrusion-color': '#6eba42',
-                'fill-extrusion-height': {
-                    // Get fill-extrusion-height from the source 'height' property.
-                    'property': 'height',
-                    'type': 'identity'
-                },
-                // 'fill-extrusion-base': {
-                //     // Get fill-extrusion-base from the source 'base_height' property.
-                //     'property': 'base_height',
-                //     'type': 'identity'
-                // },
-                // Make extrusions slightly opaque for see through indoor walls.
-                'fill-extrusion-opacity': 0.5
-            }
-        });
-
+                'paint': {
+                    // See the Mapbox Style Spec for details on property functions
+                    // https://www.mapbox.com/mapbox-gl-style-spec/#types-function
+                    'fill-extrusion-color': {
+                        // Get the fill-extrusion-color from the source 'color' property.
+                        'property': 'color',
+                        'type': 'identity'
+                    },
+                    // 'fill-extrusion-color': '#6eba42',
+                    'fill-extrusion-height': {
+                        // Get fill-extrusion-height from the source 'height' property.
+                        'property': 'height',
+                        'type': 'identity'
+                    },
+                    // 'fill-extrusion-base': {
+                    //     // Get fill-extrusion-base from the source 'base_height' property.
+                    //     'property': 'base_height',
+                    //     'type': 'identity'
+                    // },
+                    // Make extrusions slightly opaque for see through indoor walls.
+                    'fill-extrusion-opacity': 0.5
+                }
+            });
+        }
 
 
     },

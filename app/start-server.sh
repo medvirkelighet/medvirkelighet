@@ -11,4 +11,6 @@ fi
 # prod
 # forever app.js
 
+grunt
+
 forever -m 100 --spinSleepTime 1000 -f -v -w --watchDirectory routes/ app.js

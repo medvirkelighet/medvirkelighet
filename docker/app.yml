@@ -16,7 +16,7 @@ services:
     image: medvirkelighet/app:latest
     volumes:
       - ../app:/entrypoint
-      - ../config/app-config.js:/entrypoint/app-config.js:ro
+      # - ../config/app-config.js:/entrypoint/app-config.js
       - image_storage:/uploads
     links: 
       - redis

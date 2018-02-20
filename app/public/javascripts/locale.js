@@ -15,7 +15,7 @@ locale.NO = {
 
     footer : {
         login   : 'Logg inn',
-        text    : '© Mitt Distrikt 2017. ',
+        text    : '© Medvirkelighet 2018. ',
     },
 
     admin : {
@@ -24,7 +24,7 @@ locale.NO = {
             loginText       : 'til Wordpress for å redigere bloggposter.'
         },
         tags : 'Tags',
-        tagTooltip : 'Sett hvilke tags som skal være aktive. F.eks. "mittdistrikt".'
+        tagTooltip : 'Sett hvilke tags som skal være aktive. F.eks. "medvirkelighet".'
     },
 
     notes : {
@@ -47,10 +47,10 @@ locale.NO = {
     pleaseFillIn : 'Vennligst fyll inn',
     ok : 'Ok',
     title : 'Overskrift',
-    writeYourSuggestion : 'Skriv ditt forslag til #MittDistrikt',
+    writeYourSuggestion : 'Skriv ditt forslag til #Medvirkelighet',
     yourName : 'Ditt navn',
     somethingWrong : 'Noe gikk galt. Vennligst prøv igjen.',
-    fatalError : 'Noe veldig galt skjedde. Vennligst kontakt knutole@mitt-distrikt.no',
+    fatalError : 'Noe veldig galt skjedde. Vennligst kontakt knutole@medvirkelighet.no',
     writeSearchWord : 'Skriv inn ditt søkeord, uten #',
     save : 'Lagre',
     export : 'Eksportér',

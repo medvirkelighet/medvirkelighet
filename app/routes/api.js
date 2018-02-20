@@ -5,6 +5,7 @@ var _ = require('lodash');
 var shortid = require('shortid');
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-');
 var config = require('../app-config.js');
+console.log('CONFIG --> ', config);
 var redis = require('redis').createClient({ host : 'redis' });
 redis.on('error', function (err) { console.log('Redis error: ', err); });
 redis.auth(config.redis.auth);
@@ -279,7 +280,7 @@ module.exports = api = {
             try {
                 var result = json2csv({ data: data, fields: fields });
             } catch (err) {
-                var result = 'Det oppstod en feil ved eksportering. Vennligst prøv igjen, eller kontakt webansvarlig på knutole@mitt-distrikt.no.';
+                var result = 'Det oppstod en feil ved eksportering. Vennligst prøv igjen, eller kontakt webansvarlig på knutole@medvirkelighet.no.';
             }
 
             // return as file download
@@ -842,7 +843,7 @@ module.exports = api = {
         html += '</div>';
 
         // support email
-        html += '<div style="color:gray; padding-top:10px;font-size:0.9em;font-style:italic;">Dette er en automatisk generert email. Kontakt <a style="color: gray;" href="mailto:' + config.email.support_mailto + '?subject=' + config.email.support_subject + '">Mitt Distrikt</a> hvis du trenger support.</div>';
+        html += '<div style="color:gray; padding-top:10px;font-size:0.9em;font-style:italic;">Dette er en automatisk generert email. Kontakt <a style="color: gray;" href="mailto:' + config.email.support_mailto + '?subject=' + config.email.support_subject + '">Medvirkelighet.no</a> hvis du trenger support.</div>';
 
         return html;
 
