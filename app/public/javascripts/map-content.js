@@ -546,11 +546,12 @@ L.MapContent = L.Evented.extend({
         this._content = L.DomUtil.get('map');
 
         this._styles = {
-            satellite : 'mapbox://styles/mapic/cj3lgc596000p2sp0ma8z1km0',
+            satellite : 'mapbox://styles/mapic/cjdvvu5mi0h9o2sqk60qvdosz',
             streets : 'mapbox://styles/mapbox/streets-v9',
         }
 
         console.log('mapbox', app.config.mapbox);
+        console.log('styles:', this._styles);
 
         var mapOptions = {
             container: 'map',

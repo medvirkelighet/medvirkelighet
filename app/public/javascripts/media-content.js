@@ -17,6 +17,8 @@ L.Media = L.Class.extend({
         this._content = L.DomUtil.create('div', 'instagram-content', this._container);
         this._content.id = 'instagram-content';
 
+        console.log('L.Media this', this);
+
         // get feed from server
         app.api.getSocialMediaFeedAdmin(function (err, json) {
 

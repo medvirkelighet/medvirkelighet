@@ -38850,7 +38850,7 @@ locale.NO = {
 
     footer : {
         login   : 'Logg inn',
-        text    : '© Mitt Distrikt 2017. ',
+        text    : '© Medvirkelighet 2018. ',
     },
 
     admin : {
@@ -38859,7 +38859,7 @@ locale.NO = {
             loginText       : 'til Wordpress for å redigere bloggposter.'
         },
         tags : 'Tags',
-        tagTooltip : 'Sett hvilke tags som skal være aktive. F.eks. "mittdistrikt".'
+        tagTooltip : 'Sett hvilke tags som skal være aktive. F.eks. "medvirkelighet".'
     },
 
     notes : {
@@ -38882,10 +38882,10 @@ locale.NO = {
     pleaseFillIn : 'Vennligst fyll inn',
     ok : 'Ok',
     title : 'Overskrift',
-    writeYourSuggestion : 'Skriv ditt forslag til #MittDistrikt',
+    writeYourSuggestion : 'Skriv ditt forslag til #Medvirkelighet',
     yourName : 'Ditt navn',
     somethingWrong : 'Noe gikk galt. Vennligst prøv igjen.',
-    fatalError : 'Noe veldig galt skjedde. Vennligst kontakt knutole@mitt-distrikt.no',
+    fatalError : 'Noe veldig galt skjedde. Vennligst kontakt knutole@medvirkelighet.no',
     writeSearchWord : 'Skriv inn ditt søkeord, uten #',
     save : 'Lagre',
     export : 'Eksportér',
@@ -39575,7 +39575,7 @@ L.Admin = L.Class.extend({
 
             // add entries
             t.address = e.address || '';
-            t.text = e.text || '';
+            t.text = e.title + ': ' + e.text || '';
             // t.zoom = parseInt(e.zoom) || '';
             t.username = e.username || '';
             t.time = new Date(e.timestamp).toDateString() || '';
@@ -39926,7 +39926,7 @@ L.App = L.Class.extend({
             this._fillContent();
 
             // set default pane
-            this._show('map');
+            this._show(app.config.theme.pane || 'map');
 
         }.bind(this));
 
@@ -39956,6 +39956,13 @@ L.App = L.Class.extend({
         this._buttons.info.div.innerHTML = this.locale.buttons.info;
         this._buttons.map.div.innerHTML = this.locale.buttons.map;
         this._buttons.media.div.innerHTML = this.locale.buttons.media;
+
+        // set colors
+        var theme_color = app.config.theme.color;
+        console.log('theme_color', theme_color);
+        this._buttons.info.div.style.backgroundColor = theme_color;
+        this._buttons.map.div.style.backgroundColor = theme_color;
+        this._buttons.media.div.style.backgroundColor = theme_color;
 
         // logo and admin link on desktop
         this._logo = L.DomUtil.get('site-logo');
@@ -40643,24 +40650,33 @@ L.MapContent = L.Evented.extend({
         this._content = L.DomUtil.get('map');
 
         this._styles = {
-            satellite : 'mapbox://styles/mapic/cj3lgc596000p2sp0ma8z1km0',
+            satellite : 'mapbox://styles/mapic/cjdvvu5mi0h9o2sqk60qvdosz',
             streets : 'mapbox://styles/mapbox/streets-v9',
         }
 
+        console.log('mapbox', app.config.mapbox);
+        console.log('styles:', this._styles);
+
         var mapOptions = {
             container: 'map',
-            // style: 'mapbox://styles/mapbox/streets-v9',
-            // style: 'mapbox://styles/mapbox/satellite-v9',
-            // style: 'mapbox://styles/mapic/cj3lgc596000p2sp0ma8z1km0',
-            style: this._styles.satellite,
-            center: [10.24333427476904, 59.78323674962704],
-            zoom : 12,
+            // style: this._styles.satellite,
+            style: this._styles.streets,
+            // center: [10.24333427476904, 59.78323674962704],
+            // zoom : 12,
+            center: app.config.mapbox.center,
+            zoom : app.config.mapbox.zoom || 10,
+            pitch : app.config.mapbox.pitch || 0,
+            bearing : app.config.mapbox.bearing || 0,
             attributionControl : false,
+            // navigationControl : true
         };
 
         // initialize mapboxgl
         mapboxgl.accessToken = 'pk.eyJ1IjoibWFwaWMiLCJhIjoiY2ozbW53bjk5MDAwYjMzcHRiemFwNmhyaiJ9.R6p5sEuc0oSTjkcKxOSX1w';
-        var map = this._map = new mapboxgl.Map(mapOptions);
+        var map = app._map = this._map = new mapboxgl.Map(mapOptions);
+
+        var nav = new mapboxgl.NavigationControl();
+        map.addControl(nav, 'top-right');
 
         // map ready event
         map.on('load', this._onMapLoad.bind(this));
@@ -40783,7 +40799,7 @@ L.MapContent = L.Evented.extend({
         // satellite raster tiles
         map.addSource('satellite-source', {
             "type": app.config.mapbox.satellite.type,
-            "tiles": [app.config.mapbox.satellite.tiles + app.config.mapbox.satellite.access_token],
+            "tiles": [app.config.mapbox.satellite.tiles],
             "tileSize": 256
         });
         map.addLayer({
@@ -40798,14 +40814,15 @@ L.MapContent = L.Evented.extend({
         map.moveLayer('satellite', 'background');
 
         // load custom marker
-        map.loadImage(window.location.origin + '/stylesheets/blomst-red.png', function (err, image) {
+        map.loadImage(window.location.origin + '/stylesheets/blomst-omriss.png', function (err, image) {
             if (err) console.log(err);
 
             // add image
             map.addImage('blomst', image);
 
             // load second image
-            map.loadImage(window.location.origin + '/stylesheets/blomst-yellow.png', function (err, image2) {
+            // map.loadImage(window.location.origin + '/stylesheets/blomst-yellow.png', function (err, image2) {
+            map.loadImage(window.location.origin + '/stylesheets/blomst-omriss.png', function (err, image2) {
 
                 // add image
                 map.addImage('blomst2', image2);
@@ -40872,6 +40889,43 @@ L.MapContent = L.Evented.extend({
             }.bind(this));
 
         }.bind(this));
+
+        // add geojson buildings
+        if (app.config.mapbox.buildings && app.config.mapbox.buildings.geosjon) {
+            map.addLayer({
+                'id': 'room-extrusion',
+                'type': 'fill-extrusion',
+                'source': {
+                    // Geojson Data source used in vector tiles, documented at
+                    // https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
+                    'type': 'geojson',
+                    // 'data': 'https://gist.githubusercontent.com/anonymous/d5679f90d76a185d2aeed04c10d5890b/raw/96aad4c02d5d9aa6c5f592ce245bca52c5159b9a/map.geojson'
+                    'data': app.config.mapbox.buildings.geojson
+                },
+                'paint': {
+                    // See the Mapbox Style Spec for details on property functions
+                    // https://www.mapbox.com/mapbox-gl-style-spec/#types-function
+                    'fill-extrusion-color': {
+                        // Get the fill-extrusion-color from the source 'color' property.
+                        'property': 'color',
+                        'type': 'identity'
+                    },
+                    // 'fill-extrusion-color': '#6eba42',
+                    'fill-extrusion-height': {
+                        // Get fill-extrusion-height from the source 'height' property.
+                        'property': 'height',
+                        'type': 'identity'
+                    },
+                    // 'fill-extrusion-base': {
+                    //     // Get fill-extrusion-base from the source 'base_height' property.
+                    //     'property': 'base_height',
+                    //     'type': 'identity'
+                    // },
+                    // Make extrusions slightly opaque for see through indoor walls.
+                    'fill-extrusion-opacity': 0.5
+                }
+            });
+        }
 
 
     },
@@ -41227,6 +41281,8 @@ L.Media = L.Class.extend({
         // create div
         this._content = L.DomUtil.create('div', 'instagram-content', this._container);
         this._content.id = 'instagram-content';
+
+        console.log('L.Media this', this);
 
         // get feed from server
         app.api.getSocialMediaFeedAdmin(function (err, json) {

@@ -21,7 +21,7 @@ ADD ./install-redis.sh /tmp
 RUN sh /tmp/install-redis.sh
 
 # install node tools
-RUN npm install -g nodemon forever
+RUN npm install -g nodemon grunt forever
 
 EXPOSE 3001
 WORKDIR /entrypoint

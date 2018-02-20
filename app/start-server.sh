@@ -11,6 +11,8 @@ fi
 # prod
 # forever app.js
 
+echo "Running grunt!"
+
 grunt
 
 forever -m 100 --spinSleepTime 1000 -f -v -w --watchDirectory routes/ app.js
