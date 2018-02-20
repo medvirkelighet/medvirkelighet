@@ -1,5 +1,5 @@
 FROM nginx
-MAINTAINER knutole@mitt-distrikt.no
+MAINTAINER knutole@medvirkelighet.no
 
 # create directories
 RUN mkdir /logs

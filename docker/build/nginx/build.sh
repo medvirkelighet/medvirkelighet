@@ -8,6 +8,9 @@ else
   openssl dhparam -out dhparams.pem 2048 || exit 1
 fi
 
+# copy to config folder
+cp dhparams.pem /home/ubuntu/medvirkelighet/config/
+
 # build
 echo 'Building image'
-docker build -t mitt-distrikt/nginx:latest . || exit 1
+docker build -t medvirkelighet/nginx:latest . || exit 1

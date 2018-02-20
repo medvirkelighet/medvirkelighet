@@ -10,6 +10,6 @@ build () {
 
 # build images
 build nginx
-build web
+build app
 build wordpress
 build redis

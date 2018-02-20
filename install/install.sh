@@ -17,7 +17,7 @@ check_ubuntu () {
         echo "Ubuntu version $OS"
     else
         echo "You're not running Ubuntu versions 14.04, 16.04 or 17.04. This script probably won't work for you."
-        echo "Please see the wiki for manual installation: https://github.com/mapic/kart-og-medvirkning/wiki/Install"
+        echo "Please see the wiki for manual installation: https://github.com/medvirkelighet/medvirkelighet/wiki"
         exit 1
     fi
 }

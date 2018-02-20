@@ -2,7 +2,7 @@
 FROM ubuntu:16.04
 
 # maintainer
-MAINTAINER knutole@mitt-distrikt.no
+MAINTAINER knutole@medvirkelighet.no
 
 # install dependencies
 RUN apt-get -y update

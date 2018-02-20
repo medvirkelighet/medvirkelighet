@@ -475,9 +475,9 @@ module.exports = api = {
     index : function (req, res) {
         res.render('front-page', {
             fb_app_id : config.facebook.app_id,
-            image_url : 'https://' + config.domain + '/stylesheets/facebook-logo.png',
-            og_type : 'website',
-            url : 'https://' + config.domain,
+            image_url : "https://' + config.domain + '/stylesheets/facebook-logo.png",
+            og_type : "website",
+            url : "https://" + config.domain,
             main_title : config.facebook.title,
         });
     },

@@ -12,8 +12,8 @@ volumes:
 
 services:
 
-  web:
-    image: mitt-distrikt/web:latest
+  app:
+    image: medvirkelighet/app:latest
     volumes:
       - ../app:/entrypoint
       - ../config/app-config.js:/entrypoint/app-config.js:ro
@@ -23,7 +23,7 @@ services:
     command: sh start-server.sh
       
   wordpress:
-    image: mitt-distrikt/wordpress:latest
+    image: medvirkelighet/wordpress:latest
     environment:
       WORDPRESS_DB_PASSWORD: mmdNargzcoXMctLwdzdL
     volumes:
@@ -37,16 +37,16 @@ services:
       - mariadb_storage:/var/lib/mysql
 
   redis:
-    image: mitt-distrikt/redis:latest
+    image: medvirkelighet/redis:latest
     volumes:
       - ../config/redis.conf:/tmp/redis.conf:ro
       - redis_storage:/redis_storage
     command: redis-server /tmp/redis.conf
   
   nginx:
-    image: mitt-distrikt/nginx:latest
+    image: medvirkelighet/nginx:latest
     links:
-      - web
+      - app
       - wordpress
     ports:
       - 80:80

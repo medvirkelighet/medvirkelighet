@@ -1,16 +1,7 @@
 #!/bin/bash
-
-#################################################################################################
-#                                                                                               #
-# This script will install all required dependencies.                                           #
-#                                                                                               #
-# Only tested on Ubuntu 16.04, but will probably work on Ubuntu 14.04 and 17.04.                #
-#                                                                                               #
-# This script will NOT work on Windows or OSX. You need to install the requirements             #
-# manually instead. Please see the wiki for required deps:                                      #
-# https://github.com/mapic/kart-og-medvirkning/wiki/Install#manually-install-requirements       #
-#                                                                                               #
-#################################################################################################
+#                                                     
+# Install required dependencies
+#                                                     
 
 check_ubuntu () {
     OS="$(lsb_release -rs)"

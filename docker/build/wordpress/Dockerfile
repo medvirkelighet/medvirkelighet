@@ -1,5 +1,5 @@
 FROM wordpress:latest
-MAINTAINER knutole@mitt-distrikt.no
+MAINTAINER knutole@medvirkelighet.no
 
 RUN apt-get update -y
 RUN apt-get install -y curl nmap wget unzip nano
